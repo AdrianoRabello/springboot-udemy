@@ -1,37 +1,33 @@
 package com.nelioalves.cursomc.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
-public class Endereco implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract  class Pagamento implements Serializable {
 
   private static final long serialVersionUID = 1L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String logradouro;
-  private String numero;
-  private String complemento;
-  private  String bairro;
-  private String cep;
+  private EstadoPagamento estado;
 
-  @ManyToOne
-  @JoinColumn(name = "cliente_id")
   @JsonIgnore
-  private Cliente cliente;
+  @OneToOne
+  @JoinColumn(name = "pedido_id")
+  @MapsId
+  private Pedido pedido;
 
-  @ManyToOne
-  @JoinColumn(name = "cidade_id")
-  private Cidade cidade;
 
 }

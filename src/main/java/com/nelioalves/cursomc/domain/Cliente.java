@@ -1,5 +1,7 @@
 package com.nelioalves.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nelioalves.cursomc.domain.enums.TipoCiente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +35,12 @@ public class Cliente implements Serializable {
   @ElementCollection
   @CollectionTable(name = "telefone")
   private Set<String> telefones = new HashSet<>();
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "cliente")
+  private List<Pedido> pedidos = new ArrayList<>();
+
+
 
   public Cliente(Long id, String nome, String email,String cpfOuCnpj, TipoCiente tipo){
 

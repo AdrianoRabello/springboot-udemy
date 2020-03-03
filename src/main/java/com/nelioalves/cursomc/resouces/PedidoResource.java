@@ -1,18 +1,19 @@
 package com.nelioalves.cursomc.resouces;
 
-import com.nelioalves.cursomc.domain.Cliente;
-import com.nelioalves.cursomc.services.ClienteService;
+import com.nelioalves.cursomc.domain.Pedido;
+import com.nelioalves.cursomc.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/clientes")
-public class ClienteResource {
+@RequestMapping(value = "/pedidos")
+public class PedidoResource {
 
   @Autowired
-  private ClienteService service;
+  private PedidoService service;
 
 
   @GetMapping
@@ -29,13 +30,15 @@ public class ClienteResource {
   }
 
   @PostMapping
-  public ResponseEntity<?> save(@RequestBody Cliente object) {
+  public ResponseEntity<?> save(@RequestBody Pedido object) {
 
-    return new ResponseEntity<>(service.save(object), HttpStatus.CREATED);
+    System.out.println("teste **************" + object.toString());
+    return null;
+    //return new ResponseEntity<>(service.save(object), HttpStatus.CREATED);
   }
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Cliente object) {
+  public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Pedido object) {
 
     return new ResponseEntity<>(service.save(object), HttpStatus.OK);
   }
