@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,7 +40,9 @@ public class Categoria implements Serializable {
 	private Boolean ativo;
 
 
-	@ManyToMany(mappedBy = "categorias")
+	//@ManyToMany(mappedBy = "categorias")
+	@ManyToMany
+	@JsonIgnore
 	private List<Produto> produtos = new ArrayList<>();
 	
 	

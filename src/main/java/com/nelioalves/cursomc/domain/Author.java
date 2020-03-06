@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -31,7 +32,6 @@ public class Author implements Serializable{
 
 	
   @ManyToMany
-  @JsonBackReference
 	private List<Book> books = new ArrayList<Book>();
 	
 	public Author(){} 

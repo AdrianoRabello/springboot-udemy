@@ -3,6 +3,7 @@ package com.nelioalves.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.nelioalves.cursomc.exception.DataIntegrityException;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,13 @@ public class CategoriaService {
 	}
 
 	public void delete(Long id) {
-		
-		repository.deleteById(id);
+
+		try {
+			repository.deleteById(id);
+		}catch (DataIntegrityException e){
+			throw  new DataIntegrityException("Não é possivel excluir uma categoria que não tem psodutos");
+		}
+
 		
 	}
 	
