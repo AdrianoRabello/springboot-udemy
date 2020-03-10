@@ -40,8 +40,7 @@ public class Categoria implements Serializable {
 	private Boolean ativo;
 
 
-	//@ManyToMany(mappedBy = "categorias")
-	@ManyToMany
+	@ManyToMany(mappedBy = "categorias")
 	@JsonIgnore
 	private List<Produto> produtos = new ArrayList<>();
 	

@@ -2,6 +2,7 @@ package com.nelioalves.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nelioalves.cursomc.domain.enums.Perfil;
 import com.nelioalves.cursomc.domain.enums.TipoCiente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Entity
 public class Cliente implements Serializable {
@@ -28,6 +29,8 @@ public class Cliente implements Serializable {
   private String email;
   private String cpfOuCnpj;
   private Integer tipo;
+  @JsonIgnore
+  private String senha;
 
   @OneToMany(mappedBy = "cliente")
   private List<Endereco> enderecos = new ArrayList<>();
@@ -41,24 +44,40 @@ public class Cliente implements Serializable {
   private List<Pedido> pedidos = new ArrayList<>();
 
 
-
-  public Cliente(Long id, String nome, String email,String cpfOuCnpj, TipoCiente tipo){
+  public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCiente tipo, String senha) {
 
     this.id = id;
     this.email = email;
     this.cpfOuCnpj = cpfOuCnpj;
     this.tipo = tipo.getCod();
+    this.senha = senha;
   }
 
-  public TipoCiente getTipo(){
+  public Cliente(){
+    addPerfil(Perfil.CLIENTE);
+  }
+  public TipoCiente getTipo() {
 
     return TipoCiente.toEnum(this.tipo);
   }
 
-  public void SetTipo(TipoCiente tipo){
+  public void setTipo(TipoCiente tipo) {
+
     this.tipo = tipo.getCod();
   }
 
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "PERFIS")
+  private Set<Integer> perfis = new HashSet<>();
 
+  public Set<Perfil> getPerfis(){
+
+  return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+  }
+
+  public void addPerfil(Perfil perfil){
+
+    perfis.add(perfil.getCod());
+  }
 
 }

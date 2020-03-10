@@ -1,5 +1,7 @@
 package com.nelioalves.cursomc.dtos;
 
-public class ProdutoDTO {
+import java.io.Serializable;
+
+public class ProdutoDTO implements Serializable {
 
 }

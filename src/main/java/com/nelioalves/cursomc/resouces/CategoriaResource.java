@@ -60,8 +60,7 @@ public class CategoriaResource {
     public ResponseEntity<?> delete(@PathVariable Long id) {
 
       service.delete(id);
-		  return new ResponseEntity<HttpStatus>(HttpStatus.OK);
-				 
+		  return  ResponseEntity.noContent().build();
 	  }
 	
 

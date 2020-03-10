@@ -6,13 +6,15 @@ import com.nelioalves.cursomc.domain.Book;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 
 /**
  * AuthorDTO
  */
 
 @Data
-public class AuthorDTO {
+public class AuthorDTO implements Serializable {
 
   private Long id;
   private String nome;
