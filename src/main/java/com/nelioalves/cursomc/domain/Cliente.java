@@ -1,12 +1,11 @@
 package com.nelioalves.cursomc.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nelioalves.cursomc.domain.enums.Perfil;
 import com.nelioalves.cursomc.domain.enums.TipoCiente;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,7 +16,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 public class Cliente implements Serializable {
 
@@ -47,15 +47,19 @@ public class Cliente implements Serializable {
   public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCiente tipo, String senha) {
 
     this.id = id;
+    this.nome = nome;
     this.email = email;
     this.cpfOuCnpj = cpfOuCnpj;
-    this.tipo = tipo.getCod();
+    this.tipo = (tipo==null)?null: tipo.getCod();
     this.senha = senha;
+    addPerfil(Perfil.CLIENTE);
   }
 
   public Cliente(){
+
     addPerfil(Perfil.CLIENTE);
   }
+
   public TipoCiente getTipo() {
 
     return TipoCiente.toEnum(this.tipo);

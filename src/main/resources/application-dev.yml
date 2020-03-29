@@ -6,17 +6,17 @@ spring:
   profile: dev
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/cursomc?useSSL=true
+    url: jdbc:mysql://localhost:3306/cursomc?useSSL=true
     username: root
     password: devdojo
   jpa:
     properties:
       hobernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate.ddl-auto: update
+    hibernate.ddl-auto: create-drop
     generate-ddl: true
-    show-sql: true
+    show-sql: false
 
 jwt:
   secret: dev
-  expiration: 60000
+  expiration: 600000

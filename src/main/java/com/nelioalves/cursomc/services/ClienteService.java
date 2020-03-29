@@ -1,8 +1,10 @@
 package com.nelioalves.cursomc.services;
 
 import com.nelioalves.cursomc.domain.Cliente;
+import com.nelioalves.cursomc.dtos.ClienteDTO;
 import com.nelioalves.cursomc.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +13,9 @@ import java.util.List;
 public class ClienteService {
   @Autowired
   private ClienteRepository repository;
+
+  @Autowired
+  private BCryptPasswordEncoder bc;
 
 
   public Cliente findById(Long id) {
@@ -21,6 +26,7 @@ public class ClienteService {
 
   public Cliente save(Cliente object) {
 
+    object.setSenha(bc.encode(object.getSenha()));
     return repository.save(object);
 
   }
@@ -35,5 +41,10 @@ public class ClienteService {
 
     repository.deleteById(id);
 
+  }
+
+  public Cliente fromDTO(ClienteDTO dto){
+
+   return new Cliente(null,dto.getNome(),dto.getEmail(),dto.getCpfOuCnpj(),dto.getTipo(),dto.getSenha());
   }
 }

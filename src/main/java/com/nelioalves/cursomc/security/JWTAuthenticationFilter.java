@@ -2,7 +2,6 @@ package com.nelioalves.cursomc.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nelioalves.cursomc.dtos.CredenciaisDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,12 +30,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   }
 
   @Override
-  public Authentication attemptAuthentication(HttpServletRequest req,
-                                              HttpServletResponse res) throws AuthenticationException {
+  public Authentication attemptAuthentication(HttpServletRequest req,HttpServletResponse res) throws AuthenticationException {
 
     try {
-      CredenciaisDTO creds = new ObjectMapper()
-              .readValue(req.getInputStream(), CredenciaisDTO.class);
+      CredenciaisDTO creds = new ObjectMapper().readValue(req.getInputStream(), CredenciaisDTO.class);
 
       UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getSenha(), new ArrayList<>());
 

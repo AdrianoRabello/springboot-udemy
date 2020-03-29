@@ -17,28 +17,27 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Author implements Serializable{
+public class Author implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nome;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  private String nome;
 
-	
+
   @ManyToMany
-	private List<Book> books = new ArrayList<Book>();
-	
-	public Author(){} 
+  private List<Book> books = new ArrayList<Book>();
 
-	public Author(String nome) {
-		
-		
-		this.nome = nome;
-		
-	}
-	
-	
-	
+  public Author() {
+
+  }
+
+  public Author(String nome) {
+
+    this.nome = nome;
+  }
+
+
 }

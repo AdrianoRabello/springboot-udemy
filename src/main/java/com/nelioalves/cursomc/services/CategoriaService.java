@@ -9,6 +9,9 @@ import com.nelioalves.cursomc.exception.DataIntegrityException;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.Categoria;
@@ -52,6 +55,13 @@ public class CategoriaService {
     this.findById(object.getId());
 
     return repository.save(object);
+  }
+
+  public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+
+    PageRequest pageRequest = new PageRequest(page,linesPerPage, Sort.Direction.valueOf(direction),orderBy);
+
+    return repository.findAll(pageRequest);
   }
 
 
