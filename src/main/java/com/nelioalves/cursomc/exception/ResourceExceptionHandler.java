@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -45,5 +46,14 @@ public class ResourceExceptionHandler {
     }
     return ResponseEntity.ok().body(error);
   }
+
+
+  @ExceptionHandler(AuthorizationException.class)
+  public ResponseEntity<StandardError> authorizationException(AuthorizationException e, HttpServletRequest request){
+
+    StandardError error = new StandardError(HttpStatus.FORBIDDEN.value(),e.getMessage(),System.currentTimeMillis());
+    return  ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+  }
+
 
 }

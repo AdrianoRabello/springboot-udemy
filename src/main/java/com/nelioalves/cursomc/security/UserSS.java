@@ -35,6 +35,16 @@ public class UserSS implements UserDetails {
     this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
   }
 
+
+  public boolean hasHole(Perfil perfil){
+
+    return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+
+  }
+
+
+
+
   public Long getId(){
 
     return id;

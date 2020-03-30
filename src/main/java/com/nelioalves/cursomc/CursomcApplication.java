@@ -2,6 +2,7 @@ package com.nelioalves.cursomc;
 
 
 import com.nelioalves.cursomc.domain.*;
+import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 import com.nelioalves.cursomc.domain.enums.Perfil;
 import com.nelioalves.cursomc.domain.enums.TipoCiente;
 import com.nelioalves.cursomc.repository.ClienteRepository;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 
 
@@ -72,9 +74,19 @@ public class CursomcApplication  implements CommandLineRunner {
 		cliente.addPerfil(Perfil.ADMIN);
 		cliente.getTelefones().addAll(Arrays.asList("27992757824","996566191"));
 
+		Cliente cliente2 = new Cliente();
+
+		cliente2.setNome("Adriano");
+		cliente2.setEmail("adrianor.rabello@hotmail.com");
+		cliente2.setTipo(TipoCiente.PESSOAFISICA);
+		cliente2.setCpfOuCnpj("12055673726");
+		cliente2.setSenha("Milk1903");
+		cliente2.getTelefones().addAll(Arrays.asList("27992757824","996566191"));
+
 		//System.out.println("-------------------- " +clienteRepository.findByEmail("rabellocbmes@gmail.com"));
 
 		clienteService.save(cliente);
+		clienteService.save(cliente2);
 
 
 		Endereco endereco = new Endereco(null,"rua das flores", "300","apto 303", "jarfim","29163566",cliente, cidade );
@@ -95,6 +107,9 @@ public class CursomcApplication  implements CommandLineRunner {
 		categoriaService.save(cat4);
 		categoriaService.save(cat5);
 		categoriaService.save(cat6);
+
+
+
 
 
 	}

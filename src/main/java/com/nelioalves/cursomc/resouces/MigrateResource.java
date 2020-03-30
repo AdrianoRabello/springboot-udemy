@@ -2,13 +2,11 @@ package com.nelioalves.cursomc.resouces;
 
 import com.nelioalves.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.dtos.ClienteDTO;
-import com.nelioalves.cursomc.services.CategoriaService;
-import com.nelioalves.cursomc.services.CidadeService;
-import com.nelioalves.cursomc.services.ClienteService;
-import com.nelioalves.cursomc.services.EstadoService;
+import com.nelioalves.cursomc.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +26,9 @@ public class MigrateResource {
 
   @Autowired
   private ClienteService clienteService;
+
+  @Autowired
+  private PedidoService pedidoService;
 
 
   @GetMapping(value = "/cidades")
@@ -49,6 +50,7 @@ public class MigrateResource {
     return new ResponseEntity<>(clienteService.findById(id), HttpStatus.OK);
   }
 
+  //@PreAuthorize("hasAnyRole('ADMIN')")
   @PostMapping(value = "/clientes")
   public ResponseEntity<?> saveCliente(@RequestBody ClienteDTO obj){
     return ResponseEntity.ok().body(clienteService.save(clienteService.fromDTO(obj)));
@@ -81,6 +83,12 @@ public class MigrateResource {
                                                 @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 
     return ResponseEntity.ok().body(categoriaService.findPage(page, linesPerPage, orderBy, direction));
+  }
+
+  @GetMapping(value = "/pedidos")
+  public ResponseEntity<?> GetPedidos() {
+
+    return ResponseEntity.ok().body(pedidoService.findAll());
   }
 
 

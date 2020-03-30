@@ -6,6 +6,7 @@ import com.nelioalves.cursomc.domain.enums.TipoCiente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class Cliente implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String nome;
+
   private String email;
   private String cpfOuCnpj;
   private Integer tipo;
