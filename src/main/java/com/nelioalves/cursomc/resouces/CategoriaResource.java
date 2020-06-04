@@ -22,6 +22,8 @@ import com.nelioalves.cursomc.services.CategoriaService;
 
 import error.ResourceNotFoundException;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value="/categorias")
 @CrossOrigin
@@ -45,7 +47,7 @@ public class CategoriaResource {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody Categoria object) {
+    public ResponseEntity<?> save(@Valid @RequestBody Categoria object) {
 
       return new ResponseEntity<>(service.save(object), HttpStatus.CREATED);
     }

@@ -1,10 +1,7 @@
 package com.nelioalves.cursomc.exception;
 
 
-
-
-
-import lombok.Getter;
+import lombok.Data;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -12,7 +9,7 @@ import java.util.List;
 
 
 
-@Setter
+@Data
 public class ValidationError extends StandardError {
 
 

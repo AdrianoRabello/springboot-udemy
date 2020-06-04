@@ -59,6 +59,12 @@ public class Produto implements Serializable{
 
 
 
+	public Produto(String nome, Double preco,Categoria categoria){
+		nome = nome;
+		categoria = categoria;
+		preco = preco;
+
+	}
 	
 	
 	

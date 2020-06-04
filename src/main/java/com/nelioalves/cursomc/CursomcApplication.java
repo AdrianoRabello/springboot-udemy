@@ -14,10 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
+import java.util.*;
 
 
 @SpringBootApplication
@@ -43,6 +40,9 @@ public class CursomcApplication  implements CommandLineRunner {
 
 	@Autowired
 	private BCryptPasswordEncoder bc;
+
+	@Autowired
+	private ProdutoService produtoService;
 
 	
 	public static void main(String[] args) {
@@ -100,6 +100,14 @@ public class CursomcApplication  implements CommandLineRunner {
 		Categoria cat4 = new Categoria(null,"Banho",true,new ArrayList<>());
 		Categoria cat5 = new Categoria(null,"Coonsctução",true,new ArrayList<>());
 		Categoria cat6 = new Categoria(null,"Comida",true,new ArrayList<>());
+
+		Produto p1 = new Produto("Mouse", 99.99,cat1);
+		Produto p2 = new Produto("Teclado", 199.99,cat1);
+
+		Pedido pedido1 = new Pedido();
+
+		produtoService.save(p1);
+		produtoService.save(p2);
 
 		categoriaService.save(cat1);
 		categoriaService.save(cat2);
